@@ -1,4 +1,4 @@
-from vector import *
+from pyvectors import *
 
 # ''' V2
 
@@ -24,8 +24,6 @@ print(v1 % 3)
 
 v3 = Vector3.zAxis
 v4 = Vector3(3, 3, 3)
-
-print(repr(v3))
 print(v3.cross(v4))
 
 # '''
@@ -34,12 +32,13 @@ print(v3.cross(v4))
 
 v5 = Vector(1, 2, 3, 4)
 v6 = Vector(1, 2, 3, 4.1, 5)
+v7 = Vector(1, 2, 3, 4.1)
 
-print(v6 / v5)
+# print(v6 / v5) # TypeError: unsupported operand type(s) for /: 'Vector 5-components' and 'Vector 4-components'
+# print(v5 <= v6) # TypeError: '>' not supported between instances of 'Vector 4-components' and 'Vector 5-components'
 
 print(v5 == v6)
-print(v5 < v6)
-print(v5 >= v6)
-print(v6 + (-v5))
+print(v5 < v7)
+print(v5 >= v7)
 
 # '''
