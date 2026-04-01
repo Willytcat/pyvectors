@@ -1,6 +1,10 @@
 import math
 from types import GeneratorType
 
+
+def isnumber(n) -> bool:
+    return type(n) is int or type(n) is float
+
 class Vector():
     """ Vector object """
 
@@ -95,7 +99,7 @@ class Vector():
     
     # /
     def __truediv__(self, other):
-        if isinstance(other, int|float):
+        if not isnumber(other):
             if other == 1: return self
             return type(self)(comp / other for comp in self.components)
 
@@ -107,7 +111,7 @@ class Vector():
 
     # //
     def __floordiv__(self, other):
-        if isinstance(other, int|float):
+        if not isnumber(other):
             return type(self)(comp // other for comp in self.components)
 
         elif not self.compatible(other):
@@ -118,7 +122,7 @@ class Vector():
 
     # %
     def __mod__(self, other):
-        if isinstance(other, int|float):
+        if not isnumber(other):
             return type(self)(comp % other for comp in self.components)
 
         elif not self.compatible(other):
@@ -152,7 +156,6 @@ class Vector():
         return f"Vector {len(self)}-components"
 
     def RaiseCoException(self, co, other):
-        print("Vector cls exception")
         if isinstance(other, Vector):
             raise TypeError(" ".join((
                 f"'{co}' not supported between instances of",
@@ -165,8 +168,6 @@ class Vector():
             )
 
     def RaiseOpException(self, op, other):
-        print("Vector cls exception")
-
         if isinstance(other, Vector):
             raise TypeError(
                 " ".join((f"unsupported operand type(s) for {op}:",
@@ -199,12 +200,8 @@ class Vector():
 
     def scale(self, k):
         """ scales the vector by a scalar k """
-        if not isinstance(k, int|float):
-            raise TypeError(
-                    " ".join(("unsupported operand type(s) for *:",
-                    f"'{self.__class__.__name__} {len(self)}-components'", 
-                    f"and '{other.__class__.__name__} {len(other)}-components'")
-                ))
+        if not isnumber(k):
+            self.RaiseOpException("*", k)
 
         if k == 1:
             return self
@@ -232,7 +229,7 @@ class Vector():
 
     @property
     def unit(self):
-        """ return a vector with a magnitude of 1 """
+        """ return self with a magnitude of 1 """
         return self / self.magnitude
 
 
