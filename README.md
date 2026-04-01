@@ -31,7 +31,7 @@ Inherit from `Vector`. Adds two named components (x, y) and therefore components
 - `Vector2.one` Vector2(1, 1)
 
 **Properties:**
-- All properties inherited from [`Vector`](https://github.com/Willytcat/pyvectors/edit/master/README.md#vector)
+- All properties inherited from [`Vector`](https://github.com/Willytcat/pyvectors?tab=readme-ov-file#vector)
 - `Vector2.x` x component of self
 - `Vector2.y` y component of self
 - `Vector2.vComponents` returns components as vectors (one for each axis)
