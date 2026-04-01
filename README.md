@@ -1,7 +1,7 @@
 # pyvectors
 
 Python module for vectors.
-This module has 2 specific vector objects ('Vector2', 'Vector3') inherited from a base class ('Vector').
+This module has 2 specific vector objects ('Vector2', 'Vector3') inherited from a base class ([`Vector`](https://github.com/Willytcat/pyvectors?tab=readme-ov-file#vector)).
 
 ## 'Vector'
 Base class. Components are not named and can be in a infinite number with a minimum of 2.
@@ -23,7 +23,7 @@ Be careful, most of methods, operations and comparisons (except '==') will throw
 
 
 ## 'Vector2'
-Inherit from `Vector`. Adds two named components (x, y) and therefore components are of a fixed size of 2.
+Inherit from [`Vector`](https://github.com/Willytcat/pyvectors?tab=readme-ov-file#vector). Adds two named components (x, y) and therefore components are of a fixed size of 2.
 
 **Class Properties:**
 - `Vector2.xAxis` Vector2(1)
@@ -37,11 +37,11 @@ Inherit from `Vector`. Adds two named components (x, y) and therefore components
 - `Vector2.vComponents` returns components as vectors (one for each axis)
 
 **Methods:**
-- All methods inherited from `Vector`
+- All methods inherited from [`Vector`](https://github.com/Willytcat/pyvectors?tab=readme-ov-file#vector)
 
 
 ## 'Vector3'
-Inherit from `Vector`. Adds three named components (x, y, z) and therefore components are of a fixed size of 3.
+Inherit from [`Vector`](https://github.com/Willytcat/pyvectors?tab=readme-ov-file#vector). Adds three named components (x, y, z) and therefore components are of a fixed size of 3.
 
 
 **Class Properties:**
@@ -51,14 +51,14 @@ Inherit from `Vector`. Adds three named components (x, y, z) and therefore compo
 - `Vector3.one` Vector3(1, 1, 1)
 
 **Properties:**
-- All properties inherited from `Vector`
+- All properties inherited from [`Vector`](https://github.com/Willytcat/pyvectors?tab=readme-ov-file#vector)
 - `Vector3.x` x component
 - `Vector3.y` y component
 - `Vector3.z` z component
 - `Vector3.vComponents` returns components as vectors (one for each axis)
 
 **Methods:**
-- All methods inherited from `Vector`
+- All methods inherited from [`Vector`](https://github.com/Willytcat/pyvectors?tab=readme-ov-file#vector)
 - `Vector3.cross(other)` returns the cross product of self by other
 
 
