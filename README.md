@@ -7,7 +7,7 @@ This module has 2 specific vector objects ([`Vector2`](https://github.com/Willyt
 Base class. Components are not named and can be in a infinite number with a minimum of 2.
 Provides all mathematical operations and comparisons, error handling, etc.
 
-Be careful, most of methods, operations and comparisons (except '==') will throw and error if performed on vectors with a different numbers of components.
+Be careful, most of methods, operations and comparisons (except '==') will throw and error if performed on vectors with different numbers of components.
 
 **Properties:**
 - `Vector.components` tuple containing the vector components
