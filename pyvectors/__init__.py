@@ -20,7 +20,7 @@ class Vector():
             vec = tuple(x)
         
         for comp in vec:
-            if not isinstance(comp, int|float) or type(comp) == bool:
+            if not isnumber(comp):
                 raise TypeError(f"invalid component type for 'Vector': {comp.__class__.__name__}, must be int / float")
 
         self.components = vec
@@ -248,7 +248,7 @@ class Vector2(Vector):
             vec = tuple(x)
 
         for comp in vec:
-            if not isinstance(comp, int|float) or type(comp) == bool:
+            if not isnumber(comp):
                 raise TypeError(f"invalid component type for 'Vector2': {comp.__class__.__name__}, must be int / float")
         
         self.x, self.y = vec
@@ -290,7 +290,7 @@ class Vector3(Vector):
             vec = tuple(x)
 
         for comp in vec:
-            if not isinstance(comp, float|int) or type(comp) is bool:
+            if not isnumber(comp):
                 raise TypeError(f"invalid component type for 'Vector': {comp.__class__.__name__}, must be int / float")
             
         
