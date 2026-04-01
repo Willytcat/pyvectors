@@ -1,7 +1,7 @@
 # pyvectors
 
 Python module for vectors.
-This module has 2 specific vector objects ('Vector2', 'Vector3') inherited from a base class ([`Vector`](https://github.com/Willytcat/pyvectors?tab=readme-ov-file#vector)).
+This module has 2 specific vector objects ([`Vector2`](https://github.com/Willytcat/pyvectors?tab=readme-ov-file#vector2), [`Vector3`](https://github.com/Willytcat/pyvectors?tab=readme-ov-file#vector3)) inherited from a base class ([`Vector`](https://github.com/Willytcat/pyvectors?tab=readme-ov-file#vector)).
 
 ## 'Vector'
 Base class. Components are not named and can be in a infinite number with a minimum of 2.
