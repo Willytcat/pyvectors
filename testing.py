@@ -25,6 +25,7 @@ print(v1 % 3)
 v3 = Vector3.zAxis
 v4 = Vector3(3, 3, 3)
 print(v3.cross(v4))
+print(v3.dot(v4))
 
 # '''
 

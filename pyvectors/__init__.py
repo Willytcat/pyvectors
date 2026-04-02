@@ -99,7 +99,7 @@ class Vector():
     
     # /
     def __truediv__(self, other):
-        if not isnumber(other):
+        if isnumber(other):
             if other == 1: return self
             return type(self)(comp / other for comp in self.components)
 
@@ -111,7 +111,7 @@ class Vector():
 
     # //
     def __floordiv__(self, other):
-        if not isnumber(other):
+        if isnumber(other):
             return type(self)(comp // other for comp in self.components)
 
         elif not self.compatible(other):
@@ -122,7 +122,7 @@ class Vector():
 
     # %
     def __mod__(self, other):
-        if not isnumber(other):
+        if isnumber(other):
             return type(self)(comp % other for comp in self.components)
 
         elif not self.compatible(other):
@@ -314,7 +314,7 @@ class Vector3(Vector):
         if not isinstance(other, Vector3):
             raise TypeError(" ".join((
                 "trying to perform cross product on:",
-                f"'Vector3' and '{other.__class__.__name__}'"))
+                f"'{self.ExceptionPrint()}' and '{other.__class__.__name__}'"))
                 )
 
         return Vector3(
