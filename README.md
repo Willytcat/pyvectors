@@ -1,11 +1,30 @@
 # pyvectors
 
-Python module for vectors.
-This module has 2 specific vector objects ([`Vector2`](https://github.com/Willytcat/pyvectors?tab=readme-ov-file#vector2), [`Vector3`](https://github.com/Willytcat/pyvectors?tab=readme-ov-file#vector3)) inherited from a base class ([`Vector`](https://github.com/Willytcat/pyvectors?tab=readme-ov-file#vector)).
+Python module for mathematical vectors.
+This module has 2 specific vector objects [`Vector2`](https://github.com/Willytcat/pyvectors?tab=readme-ov-file#vector2) and [`Vector3`](https://github.com/Willytcat/pyvectors?tab=readme-ov-file#vector3) inherited from a base class [`Vector`](https://github.com/Willytcat/pyvectors?tab=readme-ov-file#vector).
+
+## Use this module
+All comparisons and arithmetic operators are supported by all objects inherited from [`Vector`](https://github.com/Willytcat/pyvectors?tab=readme-ov-file#vector). Arithmetic operations are only supported on vectors with the same class and same number of components.
+
+Operations: +, -, *, /, //, %, **.
+- `vector  -, +  vector`
+- `vector/number  *  vector/number`
+- `vector  /, //, %  vector/number`
+- `vector  **  number`
+
+Comparisons: >, <, >=, <=, ==, !=
+- `vector ==, != other`  checks if both are compatible and have the same components.
+- `vector >, <, >=, <= vector` compare magnitudes
+
+**Create a new vector:**
+- `Vector()` create an empty vector  Vector=(0, 0)
+- `Vector3(x, y)` create from numbers  Vector3=(x, y, 0)
+- `Vector2([x, y])` from tuples or lists  Vector2=(x, y)
+- `Vector(n+1 for n in range(4))` or using generators  Vector=(1, 2, 3, 4)
 
 ## 'Vector'
 Base class. Components are not named and can be in a infinite number with a minimum of 2.
-Provides all mathematical operations and comparisons, error handling, etc.
+Provides all arithmetic operations and comparisons, error handling, etc.
 
 Be careful, most of methods, operations and comparisons (except '==') will throw and error if performed on vectors with different numbers of components.
 
