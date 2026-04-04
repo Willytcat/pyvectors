@@ -136,6 +136,14 @@ class Vector():
         bComps = other.components
         return type(self)(comp % bComps[i] for i, comp in enumerate(self.components))
 
+    ## **
+    def __pow__(self, other):
+        if not isnumber(other):
+            self.RaiseOpException("**", other)
+
+        return type(self)(comp ** other for comp in self.components)
+        
+
     
     # Other
     def __abs__(self):
