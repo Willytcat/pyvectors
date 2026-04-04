@@ -15,9 +15,14 @@ class Vector():
         if type(x) is type(self):
             return self.copy(x)
 
-        vec = (x, y) + components
-        if type(x) is GeneratorType:
+        vec: tuple
+        if type(x) is GeneratorType or type(x) is list:
             vec = tuple(x)
+        elif type(x) is tuple:
+            vec = x
+        else:
+            vec = (x, y) + components
+        
         
         for comp in vec:
             if not isnumber(comp):
@@ -240,12 +245,19 @@ class Vector2(Vector):
     y: float
     
     def __init__(self, x=0, y=0):
-        if isinstance(x, Vector2):
+        if type(x) is Vector2:
             return self.copy(x)
 
-        vec = (x, y)
-        if isinstance(x, GeneratorType):
+        vec: tuple
+        if type(x) is GeneratorType or type(x) is list:
             vec = tuple(x)
+        elif type(x) is tuple:
+            vec = x
+        else:
+            vec = (x, y)
+
+        if len(vec) != 2:
+            raise TypeError(f"'Vector2' requires 2 components, {len(vec)} were given")
 
         for comp in vec:
             if not isnumber(comp):
@@ -285,10 +297,18 @@ class Vector3(Vector):
         if isinstance(x, Vector3):
             self.copy(x)
 
-        vec = (x, y, z)
-        if isinstance(x, GeneratorType):
+        vec: tuple
+        if type(x) is GeneratorType or type(x) is list:
             vec = tuple(x)
+        elif type(x) is tuple:
+            vec = x
+        else:
+            vec = (x, y, z)
 
+        if len(vec) != 3:
+            raise TypeError(f"'Vector3' requires 3 components, {len(vec)} were given")
+
+        
         for comp in vec:
             if not isnumber(comp):
                 raise TypeError(f"invalid component type for 'Vector': {comp.__class__.__name__}, must be int / float")
