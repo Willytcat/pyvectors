@@ -6,13 +6,13 @@ This module has 2 specific vector objects [`Vector2`](https://github.com/Willytc
 ## Use this module
 All comparisons and arithmetic operators are supported by all objects inherited from [`Vector`](https://github.com/Willytcat/pyvectors?tab=readme-ov-file#vector). Arithmetic operations are only supported on vectors with the same class and same number of components.
 
-Operations: +, -, *, /, //, %, **.
+<strong>Operations: +, -, *, /, //, %, ** </strong>
 - `vector  -, +  vector`
 - `vector/number  *  vector/number`
 - `vector  /, //, %  vector/number`
 - `vector  **  number`
 
-Comparisons: >, <, >=, <=, ==, !=
+**Comparisons: >, <, >=, <=, ==, !=**
 - `vector ==, != other`  checks if both are compatible and have the same components.
 - `vector >, <, >=, <= vector` compare magnitudes
 
