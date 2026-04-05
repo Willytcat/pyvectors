@@ -143,7 +143,6 @@ class Vector():
 
         return type(self)(comp ** other for comp in self.components)
         
-
     
     # Other
     def __abs__(self):
@@ -166,7 +165,7 @@ class Vector():
 
 
     def ExceptionPrint(self):
-        return f"Vector {len(self)}-components"
+        return f"{self.__class__.__name__} {len(self)}-components"
 
     def RaiseCoException(self, co, other):
         if isinstance(other, Vector):
@@ -203,16 +202,15 @@ class Vector():
         self.components = (otherComp[i] for i in range(len(self.components)))
         self.magnitude = other.magnitude
 
+    def clone(self):
+        return type(self)(comp for comp in self.components)
+
     def compatible(self, other):
         """ returns True if 'other' is a Vector 
-        and has not the same number of components 
-        """
+        and has the same amount of components """
         return type(self) is type(other) and len(self) == len(other)
 
-        
-
     def scale(self, k):
-        """ scales the vector by a scalar k """
         if not isnumber(k):
             self.RaiseOpException("*", k)
 
@@ -222,23 +220,23 @@ class Vector():
             return type(self)(comp * k for comp in self.components)
 
     def dot(self, other):
-        """ dot product between self and 'other' vector """
-
-        if type(self) is not type(other):
-            raise TypeError(
-                f"trying to perfom dot product on: '{self.__class__.__name__}' and '{other.__class__.__name__}'"
-            )
+        if not self.compatible(other):
+            if isinstance(other, Vector):
+                raise TypeError(
+                    f"trying to perfom dot product on: '{self.ExceptionPrint()}' and '{other.ExceptionPrint()}'"
+                )
+            else:
+                raise TypeError(
+                    f"trying to perfom dot product on: '{self.ExceptionPrint()}' and '{other.__class__.__name__}'"
+                )
 
         aComps = self.components
         bComps = other.components
-
-        if len(aComps) != len(bComps):
-            raise ArithmeticError(" ".join((
-                    f"trying to perform dot product on '{self.__class__.__name__}s'",
-                    "with different number of components"))
-                )
         
         return sum(aComps[i] * bComps[i] for i in range(len(aComps)))
+
+    def lerp(self, other, t: float):
+        return self + (other - self) * t
 
     @property
     def unit(self):
@@ -358,6 +356,17 @@ class Vector3(Vector):
             Vector3(0, self.y),
             Vector3(0, 0, self.z)
         ]
+
+
+def vsum(vectorList: [Vector]):
+    total: None
+    for vector in vectorList:
+        if total == None:
+            total = vector
+        else:
+            total += vector
+
+    return total
 
 Vector2.xAxis = Vector2(1)
 Vector2.yAxis = Vector2(0, 1)
