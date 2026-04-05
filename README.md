@@ -35,10 +35,11 @@ Be careful, most of methods, operations and comparisons (except '==') will throw
 
 **Methods:**
 - `Vector.dot(other: Vector) -> float` returns the dot product of self with other
-- `Vector.scale(k: int|float) -> ` returns self scaled by a scalar k
+- `Vector.scale(k: int|float)` returns self scaled by a scalar k
 - `Vector.compatible(other: Vector)` returns True if self and other are compatible
-- `Vector.copy(other: Vector)` copy data from other vector
-- `Vector.ExceptionPrint() -> string` returns a str representing the vector (used for errors)
+- `Vector.copy(other: Vector)` copy data from another vector
+- `Vector.clone()` creates a clone of self
+- `Vector.lerp(other: Vector, t: float)` linear interpolation, equivalent to `a - (b - a) * t`
 
 
 ## 'Vector2'
