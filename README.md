@@ -55,6 +55,7 @@ Inherit from [`Vector`](https://github.com/Willytcat/pyvectors?tab=readme-ov-fil
 - `Vector2.x` x component of self
 - `Vector2.y` y component of self
 - `Vector2.vComponents` returns components as vectors (one for each axis)
+- `Vector2.normal` returns a perpendicular vector to self (left side)
 
 **Methods:**
 - All methods inherited from [`Vector`](https://github.com/Willytcat/pyvectors?tab=readme-ov-file#vector)
