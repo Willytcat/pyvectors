@@ -291,6 +291,11 @@ class Vector2(Vector):
             Vector2(0, self.y)
         ]
 
+    @property
+    def normal(self):
+        """ returns a vector perpendicular to self """
+        return Vector2(-self.y/self.magnitude, self.x/self.magnitude)
+
 
 class Vector3(Vector):
     """ Three-dimension vector object """
