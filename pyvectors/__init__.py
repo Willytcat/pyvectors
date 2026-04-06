@@ -293,7 +293,7 @@ class Vector2(Vector):
 
     @property
     def normal(self):
-        """ returns a vector perpendicular to self """
+        """ returns a perpendicular vector to self """
         return Vector2(-self.y/self.magnitude, self.x/self.magnitude)
 
 
@@ -364,7 +364,7 @@ class Vector3(Vector):
 
 
 def vsum(vectorList: [Vector]):
-    total: None
+    total = None
     for vector in vectorList:
         if total == None:
             total = vector
