@@ -1,6 +1,10 @@
 import math
 from types import GeneratorType
 
+
+def isnumber(n) -> bool:
+    return type(n) is int or type(n) is float
+
 class Vector():
     """ Vector object """
 
@@ -11,12 +15,17 @@ class Vector():
         if type(x) is type(self):
             return self.copy(x)
 
-        vec = (x, y) + components
-        if type(x) is GeneratorType:
+        vec: tuple
+        if type(x) is GeneratorType or type(x) is list:
             vec = tuple(x)
+        elif type(x) is tuple:
+            vec = x
+        else:
+            vec = (x, y) + components
+        
         
         for comp in vec:
-            if not isinstance(comp, int|float) or type(comp) == bool:
+            if not isnumber(comp):
                 raise TypeError(f"invalid component type for 'Vector': {comp.__class__.__name__}, must be int / float")
 
         self.components = vec
@@ -95,7 +104,7 @@ class Vector():
     
     # /
     def __truediv__(self, other):
-        if isinstance(other, int|float):
+        if isnumber(other):
             if other == 1: return self
             return type(self)(comp / other for comp in self.components)
 
@@ -107,7 +116,7 @@ class Vector():
 
     # //
     def __floordiv__(self, other):
-        if isinstance(other, int|float):
+        if isnumber(other):
             return type(self)(comp // other for comp in self.components)
 
         elif not self.compatible(other):
@@ -118,7 +127,7 @@ class Vector():
 
     # %
     def __mod__(self, other):
-        if isinstance(other, int|float):
+        if isnumber(other):
             return type(self)(comp % other for comp in self.components)
 
         elif not self.compatible(other):
@@ -127,6 +136,13 @@ class Vector():
         bComps = other.components
         return type(self)(comp % bComps[i] for i, comp in enumerate(self.components))
 
+    ## **
+    def __pow__(self, other):
+        if not isnumber(other):
+            self.RaiseOpException("**", other)
+
+        return type(self)(comp ** other for comp in self.components)
+        
     
     # Other
     def __abs__(self):
@@ -149,10 +165,9 @@ class Vector():
 
 
     def ExceptionPrint(self):
-        return f"Vector {len(self)}-components"
+        return f"{self.__class__.__name__} {len(self)}-components"
 
     def RaiseCoException(self, co, other):
-        print("Vector cls exception")
         if isinstance(other, Vector):
             raise TypeError(" ".join((
                 f"'{co}' not supported between instances of",
@@ -165,8 +180,6 @@ class Vector():
             )
 
     def RaiseOpException(self, op, other):
-        print("Vector cls exception")
-
         if isinstance(other, Vector):
             raise TypeError(
                 " ".join((f"unsupported operand type(s) for {op}:",
@@ -189,22 +202,17 @@ class Vector():
         self.components = (otherComp[i] for i in range(len(self.components)))
         self.magnitude = other.magnitude
 
+    def clone(self):
+        return type(self)(comp for comp in self.components)
+
     def compatible(self, other):
         """ returns True if 'other' is a Vector 
-        and has not the same number of components 
-        """
+        and has the same amount of components """
         return type(self) is type(other) and len(self) == len(other)
 
-        
-
     def scale(self, k):
-        """ scales the vector by a scalar k """
-        if not isinstance(k, int|float):
-            raise TypeError(
-                    " ".join(("unsupported operand type(s) for *:",
-                    f"'{self.__class__.__name__} {len(self)}-components'", 
-                    f"and '{other.__class__.__name__} {len(other)}-components'")
-                ))
+        if not isnumber(k):
+            self.RaiseOpException("*", k)
 
         if k == 1:
             return self
@@ -212,27 +220,27 @@ class Vector():
             return type(self)(comp * k for comp in self.components)
 
     def dot(self, other):
-        """ dot product between self and 'other' vector """
-
-        if type(self) is not type(other):
-            raise TypeError(
-                f"trying to perfom dot product on: '{self.__class__.__name__}' and '{other.__class__.__name__}'"
-            )
+        if not self.compatible(other):
+            if isinstance(other, Vector):
+                raise TypeError(
+                    f"trying to perfom dot product on: '{self.ExceptionPrint()}' and '{other.ExceptionPrint()}'"
+                )
+            else:
+                raise TypeError(
+                    f"trying to perfom dot product on: '{self.ExceptionPrint()}' and '{other.__class__.__name__}'"
+                )
 
         aComps = self.components
         bComps = other.components
-
-        if len(aComps) != len(bComps):
-            raise ArithmeticError(" ".join((
-                    f"trying to perform dot product on '{self.__class__.__name__}s'",
-                    "with different number of components"))
-                )
         
         return sum(aComps[i] * bComps[i] for i in range(len(aComps)))
 
+    def lerp(self, other, t: float):
+        return self + (other - self) * t
+
     @property
     def unit(self):
-        """ return a vector with a magnitude of 1 """
+        """ return self with a magnitude of 1 """
         return self / self.magnitude
 
 
@@ -243,15 +251,22 @@ class Vector2(Vector):
     y: float
     
     def __init__(self, x=0, y=0):
-        if isinstance(x, Vector2):
+        if type(x) is Vector2:
             return self.copy(x)
 
-        vec = (x, y)
-        if isinstance(x, GeneratorType):
+        vec: tuple
+        if type(x) is GeneratorType or type(x) is list:
             vec = tuple(x)
+        elif type(x) is tuple:
+            vec = x
+        else:
+            vec = (x, y)
+
+        if len(vec) != 2:
+            raise TypeError(f"'Vector2' requires 2 components, {len(vec)} were given")
 
         for comp in vec:
-            if not isinstance(comp, int|float) or type(comp) == bool:
+            if not isnumber(comp):
                 raise TypeError(f"invalid component type for 'Vector2': {comp.__class__.__name__}, must be int / float")
         
         self.x, self.y = vec
@@ -288,12 +303,20 @@ class Vector3(Vector):
         if isinstance(x, Vector3):
             self.copy(x)
 
-        vec = (x, y, z)
-        if isinstance(x, GeneratorType):
+        vec: tuple
+        if type(x) is GeneratorType or type(x) is list:
             vec = tuple(x)
+        elif type(x) is tuple:
+            vec = x
+        else:
+            vec = (x, y, z)
 
+        if len(vec) != 3:
+            raise TypeError(f"'Vector3' requires 3 components, {len(vec)} were given")
+
+        
         for comp in vec:
-            if not isinstance(comp, float|int) or type(comp) is bool:
+            if not isnumber(comp):
                 raise TypeError(f"invalid component type for 'Vector': {comp.__class__.__name__}, must be int / float")
             
         
@@ -317,7 +340,7 @@ class Vector3(Vector):
         if not isinstance(other, Vector3):
             raise TypeError(" ".join((
                 "trying to perform cross product on:",
-                f"'Vector3' and '{other.__class__.__name__}'"))
+                f"'{self.ExceptionPrint()}' and '{other.__class__.__name__}'"))
                 )
 
         return Vector3(
@@ -333,6 +356,17 @@ class Vector3(Vector):
             Vector3(0, self.y),
             Vector3(0, 0, self.z)
         ]
+
+
+def vsum(vectorList: [Vector]):
+    total: None
+    for vector in vectorList:
+        if total == None:
+            total = vector
+        else:
+            total += vector
+
+    return total
 
 Vector2.xAxis = Vector2(1)
 Vector2.yAxis = Vector2(0, 1)
