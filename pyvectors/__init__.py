@@ -376,8 +376,10 @@ def vsum(vectorList: [Vector]):
 Vector2.xAxis = Vector2(1)
 Vector2.yAxis = Vector2(0, 1)
 Vector2.one = Vector2(1, 1)
+Vector2.zero = Vector2()
 
 Vector3.xAxis = Vector3(1)
 Vector3.yAxis = Vector3(0, 1)
 Vector3.zAxis = Vector3(0, 0, 1)
 Vector3.one = Vector3(1, 1, 1)
+Vector3.zero = Vector3()
